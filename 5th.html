@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VTU SGPA Calculator for 5th Semester - Calculate your SGPA easily">
+    <title>5th Sem SGPA Calculator | VTU</title>
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+    
+    <!-- Side Menu -->
+    <nav class="menu-container">
+        <div class="menu-header">
+            <h3>SGPA Calculator</h3>
+            <p>VTU Scheme 2022</p>
+        </div>
+        <div class="menu">
+            <a href="1st.html">📘 1st Semester</a>
+            <a href="2nd.html">📗 2nd Semester</a>
+            <a href="3rd.html">📙 3rd Semester</a>
+            <a href="4th.html">📕 4th Semester</a>
+            <a href="5th.html">📓 5th Semester</a>
+            <a href="6th.html">📔 6th Semester</a>
+            <a href="index.html">📒 7th Semester</a>
+        </div>
+    </nav>
+
+    <!-- Main Calculator -->
+    <main class="container">
+        <h2>5th Semester</h2>
+        
+        <div class="form-group">
+            <label for="sub1">B**501 - Subject 1</label>
+            <input type="number" id="sub1" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="sub2">B**502 - Subject 2</label>
+            <input type="number" id="sub2" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="sub3">B**503 - Subject 3</label>
+            <input type="number" id="sub3" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="sub4">B**504 - Lab</label>
+            <input type="number" id="sub4" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="sub5">B**515 - Subject 5</label>
+            <input type="number" id="sub5" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="lab1">BRMK557 - Research Methodology</label>
+            <input type="number" id="lab1" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="lab2">B*508 / BESK508 - NSS/PE</label>
+            <input type="number" id="lab2" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+        
+        <div class="form-group">
+            <label for="lab3">B**586 </label>
+            <input type="number" id="lab3" min="0" max="100" placeholder="Enter marks (0-100)">
+        </div>
+
+        <button class="btn btn-primary" onclick="calculate()">Calculate SGPA</button>
+
+        <div class="result-section">
+            <p>Your SGPA</p>
+            <div class="result-display">--</div>
+            <span class="grade-badge" style="display: none;"></span>
+            <br><br>
+            <a href="https://results.vtu.ac.in/DJcbcs24/index.php" target="_blank" class="result-link">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+                View Official Results
+            </a>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        // 5th Semester subjects with credits
+        const subjects = [
+            { id: 'sub1', credits: 4 },
+            { id: 'sub2', credits: 4 },
+            { id: 'sub3', credits: 4 },
+            { id: 'sub4', credits: 1 },
+            { id: 'sub5', credits: 3 },
+            { id: 'lab1', credits: 3 },
+            { id: 'lab2', credits: 1 },
+            { id: 'lab3', credits: 2 }
+        ];
+        const totalCredits = 22;
+
+        function calculate() {
+            const sgpa = calculateSGPA(subjects, totalCredits);
+            displayResult(sgpa);
+        }
+    </script>
+</body>
+</html>
