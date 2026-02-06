@@ -130,18 +130,21 @@ function calculateSGPA(subjects, totalCredits) {
     for (const subject of subjects) {
         const input = document.getElementById(subject.id);
         const value = parseInt(input.value);
+        const maxMarks = subject.maxMarks || 100;
         
-        if (isNaN(value) || value < 0 || value > 100) {
+        if (isNaN(value) || value < 0 || value > maxMarks) {
             input.classList.add('invalid');
             allValid = false;
         } else {
             input.classList.remove('invalid');
-            totalPoints += subject.credits * getGradePoint(value);
+            // Convert to percentage if maxMarks is not 100
+            const percentage = (value / maxMarks) * 100;
+            totalPoints += subject.credits * getGradePoint(percentage);
         }
     }
     
     if (!allValid) {
-        showToast('Please enter valid marks (0-100) for all subjects');
+        showToast('Please enter valid marks for all subjects');
         return null;
     }
     

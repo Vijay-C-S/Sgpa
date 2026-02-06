@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>7th Sem SGPA Calculator | VTU</title>
     <link rel="stylesheet" href="shared.css">
 </head>
+
 <body>
     <!-- Hamburger Menu Button -->
     <div class="hamburger" onclick="toggleMenu()">
@@ -14,10 +16,10 @@
         <span></span>
         <span></span>
     </div>
-    
+
     <!-- Menu Overlay -->
     <div class="menu-overlay"></div>
-    
+
     <!-- Side Menu -->
     <nav class="menu-container">
         <div class="menu-header">
@@ -38,35 +40,35 @@
     <!-- Main Calculator -->
     <main class="container">
         <h2>7th Semester</h2>
-        
+
         <div class="form-group">
             <label for="sub1">B**701 - Subject 1</label>
             <input type="number" id="sub1" min="0" max="100" placeholder="Enter marks (0-100)">
         </div>
-        
+
         <div class="form-group">
             <label for="sub2">B**702 - Subject 2</label>
             <input type="number" id="sub2" min="0" max="100" placeholder="Enter marks (0-100)">
         </div>
-        
+
         <div class="form-group">
             <label for="sub3">B**703 - Subject 3</label>
             <input type="number" id="sub3" min="0" max="100" placeholder="Enter marks (0-100)">
         </div>
-        
+
         <div class="form-group">
             <label for="sub4">B**714* - Professional Elective</label>
             <input type="number" id="sub4" min="0" max="100" placeholder="Enter marks (0-100)">
         </div>
-        
+
         <div class="form-group">
             <label for="sub5">B**755* - Open Elective</label>
             <input type="number" id="sub5" min="0" max="100" placeholder="Enter marks (0-100)">
         </div>
-        
+
         <div class="form-group">
             <label for="lab1">B**786 - Major Project Phase 2</label>
-            <input type="number" id="lab1" min="0" max="100" placeholder="Enter marks (0-100)">
+            <input type="number" id="lab1" min="0" max="200" placeholder="Enter marks (0-200)">
         </div>
 
         <button class="btn btn-primary" onclick="calculate()">Calculate SGPA</button>
@@ -78,7 +80,8 @@
             <br><br>
             <a href="https://results.vtu.ac.in/JJEcbcs25/index.php" target="_blank" class="result-link">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
                 View Official Results
             </a>
@@ -89,12 +92,12 @@
     <script>
         // 7th Semester subjects with credits
         const subjects = [
-            { id: 'sub1', credits: 4 },
-            { id: 'sub2', credits: 4 },
-            { id: 'sub3', credits: 4 },
-            { id: 'sub4', credits: 3 },
-            { id: 'sub5', credits: 3 },
-            { id: 'lab1', credits: 6 }
+            { id: 'sub1', credits: 4, maxMarks: 100 },
+            { id: 'sub2', credits: 4, maxMarks: 100 },
+            { id: 'sub3', credits: 4, maxMarks: 100 },
+            { id: 'sub4', credits: 3, maxMarks: 100 },
+            { id: 'sub5', credits: 3, maxMarks: 100 },
+            { id: 'lab1', credits: 6, maxMarks: 200 }
         ];
         const totalCredits = 24;
 
@@ -104,4 +107,5 @@
         }
     </script>
 </body>
+
 </html>
