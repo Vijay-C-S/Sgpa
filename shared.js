@@ -17,19 +17,19 @@ function toggleMenu() {
     const menu = document.querySelector('.menu-container');
     const hamburger = document.querySelector('.hamburger');
     const overlay = document.querySelector('.menu-overlay');
-    
+
     menu.classList.toggle('open');
     hamburger.classList.toggle('active');
     overlay.classList.toggle('active');
 }
 
 // Close menu when clicking overlay
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const overlay = document.querySelector('.menu-overlay');
     if (overlay) {
         overlay.addEventListener('click', toggleMenu);
     }
-    
+
     // Mark current page as active in menu
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const menuLinks = document.querySelectorAll('.menu a');
@@ -39,21 +39,22 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.add('active');
         }
     });
-    
+
     // Add input validation
     const inputs = document.querySelectorAll('.form-group input[type="number"]');
     inputs.forEach(input => {
-        input.addEventListener('input', function() {
+        input.addEventListener('input', function () {
             const value = parseInt(this.value);
-            if (value < 0 || value > 100) {
+            const maxValue = parseInt(this.getAttribute('max')) || 100;
+            if (value < 0 || value > maxValue) {
                 this.classList.add('invalid');
             } else {
                 this.classList.remove('invalid');
             }
         });
-        
+
         // Allow Enter key to calculate
-        input.addEventListener('keypress', function(e) {
+        input.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 calculate();
             }
@@ -68,12 +69,12 @@ function showToast(message, duration = 3000) {
     if (existingToast) {
         existingToast.remove();
     }
-    
+
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => toast.classList.add('show'), 10);
     setTimeout(() => {
         toast.classList.remove('show');
@@ -84,40 +85,40 @@ function showToast(message, duration = 3000) {
 // Get grade category and message
 function getGradeInfo(sgpa) {
     if (sgpa >= 9) {
-        return { 
-            class: 'excellent', 
+        return {
+            class: 'excellent',
             badge: 'Outstanding! 🏆',
-            message: 'Exceptional performance! Keep it up!' 
+            message: 'Exceptional performance! Keep it up!'
         };
     } else if (sgpa >= 8) {
-        return { 
-            class: 'good', 
+        return {
+            class: 'good',
             badge: 'Excellent! ⭐',
-            message: 'Great job! You\'re doing amazing!' 
+            message: 'Great job! You\'re doing amazing!'
         };
     } else if (sgpa >= 7) {
-        return { 
-            class: 'good', 
+        return {
+            class: 'good',
             badge: 'Very Good 👍',
-            message: 'Well done! Keep pushing forward!' 
+            message: 'Well done! Keep pushing forward!'
         };
     } else if (sgpa >= 6) {
-        return { 
-            class: 'average', 
+        return {
+            class: 'average',
             badge: 'Good 📚',
-            message: 'Good effort! Aim higher next time!' 
+            message: 'Good effort! Aim higher next time!'
         };
     } else if (sgpa >= 5) {
-        return { 
-            class: 'average', 
+        return {
+            class: 'average',
             badge: 'Average 📖',
-            message: 'You passed! Work on improving.' 
+            message: 'You passed! Work on improving.'
         };
     } else {
-        return { 
-            class: 'poor', 
+        return {
+            class: 'poor',
             badge: 'Needs Improvement 💪',
-            message: 'Don\'t give up! You can do better!' 
+            message: 'Don\'t give up! You can do better!'
         };
     }
 }
@@ -126,12 +127,12 @@ function getGradeInfo(sgpa) {
 function calculateSGPA(subjects, totalCredits) {
     let totalPoints = 0;
     let allValid = true;
-    
+
     for (const subject of subjects) {
         const input = document.getElementById(subject.id);
         const value = parseInt(input.value);
         const maxMarks = subject.maxMarks || 100;
-        
+
         if (isNaN(value) || value < 0 || value > maxMarks) {
             input.classList.add('invalid');
             allValid = false;
@@ -142,12 +143,12 @@ function calculateSGPA(subjects, totalCredits) {
             totalPoints += subject.credits * getGradePoint(percentage);
         }
     }
-    
+
     if (!allValid) {
         showToast('Please enter valid marks for all subjects');
         return null;
     }
-    
+
     // SGPA = Total Grade Points / Total Credits (result is between 0-10)
     return (totalPoints / totalCredits).toFixed(2);
 }
@@ -156,24 +157,24 @@ function calculateSGPA(subjects, totalCredits) {
 function displayResult(sgpa) {
     const resultDisplay = document.querySelector('.result-display');
     const gradeBadge = document.querySelector('.grade-badge');
-    
+
     if (sgpa === null) {
         resultDisplay.textContent = '--';
         resultDisplay.className = 'result-display';
         if (gradeBadge) gradeBadge.style.display = 'none';
         return;
     }
-    
+
     const gradeInfo = getGradeInfo(parseFloat(sgpa));
-    
+
     resultDisplay.textContent = sgpa;
     resultDisplay.className = `result-display ${gradeInfo.class}`;
-    
+
     if (gradeBadge) {
         gradeBadge.textContent = gradeInfo.badge;
         gradeBadge.className = `grade-badge ${gradeInfo.class}`;
         gradeBadge.style.display = 'inline-block';
     }
-    
+
     showToast(gradeInfo.message);
 }
