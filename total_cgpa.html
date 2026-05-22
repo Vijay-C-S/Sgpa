@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VTU CGPA Calculator - Calculate your Final CGPA across all 8 semesters">
+    <title>Final CGPA Calculator | VTU</title>
+    <link rel="stylesheet" href="shared.css">
+</head>
+
+<body>
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Side Menu -->
+    <nav class="menu-container">
+        <div class="menu-header">
+            <h3>SGPA Calculator</h3>
+            <p>VTU Scheme 2022</p>
+        </div>
+        <div class="menu">
+            <a href="1st.html">📘 1st Semester</a>
+            <a href="2nd.html">📗 2nd Semester</a>
+            <a href="3rd.html">📙 3rd Semester</a>
+            <a href="4th.html">📕 4th Semester</a>
+            <a href="5th.html">📓 5th Semester</a>
+            <a href="6th.html">📔 6th Semester</a>
+            <a href="7th.html">📗 7th Semester</a>
+            <a href="index.html">📒 8th Semester</a>
+            <a href="total_cgpa.html">🎓 Final CGPA</a>
+        </div>
+    </nav>
+
+    <!-- Main Calculator -->
+    <main class="container">
+        <h2>Final CGPA</h2>
+
+        <div class="form-group">
+            <label for="sem1">1st Semester SGPA (Credits: 20)</label>
+            <input type="number" id="sem1" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem2">2nd Semester SGPA (Credits: 20)</label>
+            <input type="number" id="sem2" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem3">3rd Semester SGPA (Credits: 20)</label>
+            <input type="number" id="sem3" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem4">4th Semester SGPA (Credits: 19)</label>
+            <input type="number" id="sem4" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem5">5th Semester SGPA (Credits: 22)</label>
+            <input type="number" id="sem5" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem6">6th Semester SGPA (Credits: 18)</label>
+            <input type="number" id="sem6" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem7">7th Semester SGPA (Credits: 24)</label>
+            <input type="number" id="sem7" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <div class="form-group">
+            <label for="sem8">8th Semester SGPA (Credits: 16)</label>
+            <input type="number" id="sem8" min="0" max="10" step="0.01" placeholder="Enter SGPA (0 - 10)">
+        </div>
+
+        <button class="btn btn-primary" onclick="calculate()">Calculate CGPA</button>
+
+        <div class="result-section">
+            <p>Your Final CGPA</p>
+            <div class="result-display">--</div>
+            <span class="grade-badge" style="display: none;"></span>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script>
+        // Credits for each semester (VTU Scheme 2022)
+        const semesterCredits = [20, 20, 20, 19, 22, 18, 24, 16];
+        const totalCredits = semesterCredits.reduce((a, b) => a + b, 0); // 159
+
+        function calculate() {
+            let totalWeightedPoints = 0;
+            let allValid = true;
+
+            for (let i = 0; i < 8; i++) {
+                const input = document.getElementById('sem' + (i + 1));
+                const value = parseFloat(input.value);
+
+                if (isNaN(value) || value < 0 || value > 10) {
+                    input.classList.add('invalid');
+                    allValid = false;
+                } else {
+                    input.classList.remove('invalid');
+                    totalWeightedPoints += value * semesterCredits[i];
+                }
+            }
+
+            if (!allValid) {
+                showToast('Please enter valid SGPA (0 - 10) for all semesters');
+                displayResult(null);
+                return;
+            }
+
+            const cgpa = (totalWeightedPoints / totalCredits).toFixed(2);
+            displayResult(cgpa);
+        }
+    </script>
+</body>
+
+</html>
